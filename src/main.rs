@@ -6,13 +6,14 @@ fn main() {
         .read_line(&mut line)
         .expect("impossible");
     let vector:Vec <u8>= line.chars().map(|x| x as u8).collect();
-    let length = line.len();
+    let length = vector.len();
     let half = length/2;
     let mut start=0;
     let mut finish=0;
     let mut maximum=1;
 
-    if length==1 {print!(""); return;}
+
+    if length==1 {print!(""); return}
 
     for i in 1..half {
         let mut current=1;
@@ -84,5 +85,9 @@ fn main() {
         }
     }
 
-    print!("{}", &line[start..finish+1]);
+    if length>1 {
+        for i in start..finish+1 {
+            print!("{}", vector[i] as char)
+        }
+    }
 }
