@@ -79,7 +79,5 @@ fn main() {
             if current>maximum {maximum=current; start=cur_start; finish=cur_finish;}
         }
     }
-
-
     print!("{}", &line[start..finish+1]);
 }
