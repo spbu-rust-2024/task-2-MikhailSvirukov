@@ -83,4 +83,4 @@ fn main() {
 
 
     println!("{}", &line[start..finish+1]);
-} 
+}
