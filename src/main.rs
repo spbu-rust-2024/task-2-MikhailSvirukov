@@ -5,7 +5,6 @@ fn main() {
     io::stdin()
         .read_line(&mut line)
         .expect("impossible");
-    print!("{}", line);
     let vector = line.as_bytes();
     let mut start=0;
     let mut finish=0;
@@ -82,5 +81,5 @@ fn main() {
     }
 
 
-    println!("{}", &line[start..finish+1]);
-} 
+    print!("{}", &line[start..finish+1]);
+}
