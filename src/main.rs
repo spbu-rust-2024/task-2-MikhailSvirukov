@@ -14,7 +14,7 @@ fn main() {
         let mut current=1;
         let mut cur_start=i;
         let mut cur_finish=i;
-        for u in 1..i {
+        for u in 1..i+1 {
             if vector[i-u]==vector[i+u] {
                 cur_finish=cur_finish+1;
                 cur_start=cur_start-1;
@@ -26,7 +26,7 @@ fn main() {
         if current>maximum {maximum=current; start=cur_start; finish=cur_finish;}
     }
 
-    for i in (vector.len())/2..vector.len()-1 {
+    for i in (vector.len())/2..vector.len() {
         let mut current=1;
         let mut cur_start=i;
         let mut cur_finish=i;
