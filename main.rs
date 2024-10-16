@@ -5,7 +5,7 @@ struct Pol {
     start: usize,
     end: usize,
 }
-fn even(vector: &[u8]) -> Pol {
+fn even(vector: &Vec<u8>) -> Pol {
     let mut maximum = Pol {
         maximum: 0,
         start: 1,
@@ -14,28 +14,30 @@ fn even(vector: &[u8]) -> Pol {
     for i in 1..vector.len() {
         let mut current = Pol {
             maximum: 0,
-            start: i,
-            end: i - 1,
+            start: i - 1,
+            end: i,
         };
-
-        let mut u = 0;
-        while i > u && i + u < vector.len() {
-            if vector[i - u - 1] == vector[i + u] {
-                current.end += 1;
-                current.start -= 1;
-                current.maximum += 2;
-                u += 1;
-            } else {
-                break;
+        if vector[i] == vector[i - 1] {
+            current.maximum += 2;
+            let mut u = 1;
+            while i>u && i + u < vector.len() {
+                if vector[i - u - 1] == vector[i + u] {
+                    current.end += 1;
+                    current.start -= 1;
+                    current.maximum += 2;
+                    u += 1;
+                } else {
+                    break;
+                }
             }
         }
         if current.maximum > maximum.maximum {
-            maximum = current;
+            maximum = current
         };
     }
     maximum
 }
-fn uneven(vector: &[u8]) -> Pol {
+fn uneven(vector: &Vec<u8>) -> Pol {
     let mut maximum = Pol {
         maximum: 1,
         start: 0,
@@ -48,7 +50,7 @@ fn uneven(vector: &[u8]) -> Pol {
             end: i,
         };
         let mut u = 1;
-        while u < vector.len() - i && 1 + i > u {
+        while u<vector.len()-i && 1+i>u  {
             if vector[i - u] == vector[i + u] {
                 current.end += 1;
                 current.start -= 1;
@@ -67,14 +69,19 @@ fn uneven(vector: &[u8]) -> Pol {
 fn main() {
     let mut line: String = String::new();
     io::stdin().read_line(&mut line).expect("impossible");
-    let vector: &[u8] = line.as_bytes();
-    let even_pol = even(vector);
-    let uneven_pol = uneven(vector);
+    let vector: Vec<u8> = line.chars().map(|x| x as u8).collect();
+    let even_pol = even(&vector);
+    let uneven_pol =uneven(&vector);
     if line.len() > 1 {
         if even_pol.maximum > uneven_pol.maximum {
-            print!("{}", &line[even_pol.start..even_pol.end + 1]);
+            for i in even_pol.start..even_pol.end+1 {
+                print!("{}", vector[i] as char);
+            }
         } else {
-            print!("{}", &line[uneven_pol.start..uneven_pol.end + 1]);
+            for i in uneven_pol.start..uneven_pol.end+1 {
+                print!("{}", vector[i] as char);
+            }
         }
     }
+    println!("");
 }
